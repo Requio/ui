@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URL } from '../constants';
-import localStore from '../utils/local-store';
+import localStore from './local-store';
 
 const store = localStore('ajax');
 

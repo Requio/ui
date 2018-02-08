@@ -1,6 +1,6 @@
 import {
-  REQUEST_PROCS,
-  RECEIVE_PROCS,
+  REQUEST_PROC,
+  RECEIVE_PROC,
   CREATE_PROC,
   UPDATE_PROC,
 } from '../actions';
@@ -8,13 +8,13 @@ import { recordState } from './base';
 
 export const procs = (state = recordState, action) => {
   switch (action.type) {
-    case REQUEST_PROCS:
+    case REQUEST_PROC:
       return {
         ...state,
         isFetching: true,
         stale: false,
       };
-    case RECEIVE_PROCS:
+    case RECEIVE_PROC:
       return {
         ...state,
         isFetching: false,
