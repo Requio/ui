@@ -13,6 +13,7 @@ class AppComponent extends React.Component {
   constructor(props) {
     super(props);
     props.getSession();
+    props.getProcs();
   }
   render() {
     if (this.props.loading) {
@@ -35,6 +36,15 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getSession: () => dispatch(getSession()),
+  getProcs: () => dispatch({
+    type: 'API_REQUEST',
+    endpoint: '/procs',
+    actionTypes: [
+      'FETCH_PROC',
+      'RECEIVE_PROC',
+      'ERROR_PROC',
+    ],
+  }),
 });
 
 export default connectWithRouter(

@@ -10,10 +10,7 @@ export const AuthRouteComponent = ({ authenticated, component: Component, ...res
     props => (
       authenticated
         ? <Component {...props} />
-        : <Redirect to={{
-            pathname: '/login',
-            state: { from: props.location },
-          }} />
+        : <Redirect to="/login" />
     )
   } />
 );

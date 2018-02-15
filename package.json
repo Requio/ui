@@ -63,14 +63,16 @@
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-3": "^6.24.1"
+    "babel-preset-stage-3": "^6.24.1",
+    "jest-localstorage-mock": "^2.2.0"
   },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"
     ],
     "setupFiles": [
-      "<rootDir>/config/polyfills.js"
+      "<rootDir>/config/polyfills.js",
+      "jest-localstorage-mock"
     ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",

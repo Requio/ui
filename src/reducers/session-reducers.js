@@ -20,7 +20,7 @@ export const session = (state = initialState, action) => {
     case SESSION_START:
       return {
         ...state,
-        authenticated: true,
+        authenticated: action.user.authenticated,
         user: action.user,
         loading: false,
         error: null,
