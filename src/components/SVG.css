@@ -1,0 +1,8 @@
+.svg {
+  width: 100%;
+}
+
+.svg :global(svg) {
+  width: 60px;
+  height: 60px;
+}

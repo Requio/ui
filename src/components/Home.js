@@ -1,7 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import LoadingScreen from './LoadingScreen';
 
-export default () => (
+const Home = ({ procs }) => (
   <div>
-    Welcome to Requio!
+    {procs.isLoading
+      ? <LoadingScreen msg="Loading procs..." />
+      : Object.entries(procs.models).map(([,proc]) => (
+          <div key={proc.id}>
+            <Link to={`/proc/${proc.id}`}>{proc.title}</Link>
+          </div>
+        ))
+    }
   </div>
 );
+
+export default Home;

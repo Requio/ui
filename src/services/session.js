@@ -8,7 +8,7 @@ export const getSession = () => {
   return dispatch => {
     dispatch(loadSession());
     http.get(`${API_URL}/session`)
-      .then(({ data: { user } }) => dispatch(startSession(user)))
+      .then(({ data: { users: [user] } }) => dispatch(startSession(user)))
       .catch(err => dispatch(errorSession(err)));
   };
 };

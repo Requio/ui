@@ -5,24 +5,32 @@ import { getSession } from '../services/session';
 
 import AuthRoute from './AuthRoute';
 import Login from './Login';
+import HomeContainer from './HomeContainer';
+import ProcContainer from './ProcContainer';
+import ProfileContainer from './ProfileContainer';
+
+import SideBar from '../components/SideBar';
+import Page from '../components/Page';
 import LoadingScreen from '../components/LoadingScreen';
-import Home from '../components/Home';
 
 
-class AppComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    props.getSession();
-    props.getProcs();
+class AppContainer extends React.Component {
+  componentDidMount() {
+    this.props.getSession();
   }
   render() {
     if (this.props.loading) {
-      return <LoadingScreen />;
+      return <LoadingScreen msg="Loading session..." />;
     }
     return (
       <div>
-        <Route path="/login" component={Login} />
-        <AuthRoute exact path="/" component={Home} />
+        <SideBar />
+        <Page>
+          <Route path="/login" component={Login} />
+          <AuthRoute exact path="/" component={HomeContainer} />
+          <AuthRoute exact path="/proc/:id" component={ProcContainer} />
+          <AuthRoute exact path="/profile" component={ProfileContainer} />
+        </Page>
         {/* <AuthRoute path="/procs" component={Procs}/>
         <AuthRoute path="/user-account" component={UserAccount}/> */}
       </div>
@@ -36,18 +44,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getSession: () => dispatch(getSession()),
-  getProcs: () => dispatch({
-    type: 'API_REQUEST',
-    endpoint: '/procs',
-    actionTypes: [
-      'FETCH_PROC',
-      'RECEIVE_PROC',
-      'ERROR_PROC',
-    ],
-  }),
 });
 
 export default connectWithRouter(
   mapStateToProps,
   mapDispatchToProps
-)(AppComponent);
+)(AppContainer);

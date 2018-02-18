@@ -1,9 +1,16 @@
-import Model from './base-model';
+import { Model } from './base-model';
+import Task from './task';
 
-class Proc extends Model {}
+class Proc extends Model {
+  static className = 'Proc'
+  static relations = {
+    tasks: Task,
+  }
+}
 
-export const proc = new Proc();
+export default Proc;
 
-export const reducer = proc.reducer;
 
-window.proc = proc;
+
+
+window.Proc = Proc;

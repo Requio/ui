@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default () => (
-  <div>Loading...</div>
+export default ({ msg }) => (
+  <div>{ msg ? msg : 'Loading...' }</div>
 );

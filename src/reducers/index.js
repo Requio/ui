@@ -1,12 +1,11 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import * as modelReducers from './model-reducers';
+import { reducers as modelReducers } from '../models';
 import * as sessionReducers from './session-reducers';
-
-console.log(modelReducers);
 
 export default combineReducers({
   router: routerReducer,
-  ...modelReducers,
+  entities: combineReducers(modelReducers),
+  // ui: combineReducers(uiReducers),
   ...sessionReducers,
 });
