@@ -9,13 +9,13 @@ export default store => next => action => {
 
   const {
     endpoint,
-    fetchType,
+    requestType,
     responseType,
     errorType,
     context,
   } = action;
 
-  next({ type: fetchType, ...context });
+  next({ type: requestType, ...context });
 
   return api.get(endpoint)
     .then(({ data }) => next({

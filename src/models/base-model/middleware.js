@@ -1,6 +1,17 @@
+import { flatten } from 'lodash';
 import { api } from '../../services/http';
+import { getModel } from './base';
 
 export const MODEL_REQUEST = '@@MODEL_REQUEST';
+
+const getModels = chain => {
+  if (chain.match(/\./)) {
+    const chainedModels = chain.split(/\./g);
+    const base = chainedModels.shift();
+    return [getModel(base)].concat(getModels(chainedModels.join('.')));
+  }
+  return getModel(chain);
+};
 
 export default store => next => action => {
   if (action.type !== MODEL_REQUEST) {
@@ -9,7 +20,7 @@ export default store => next => action => {
 
   const {
     model,
-    fetchType,
+    requestType,
     responseTypeKey,
     errorType,
     context: {
@@ -22,16 +33,18 @@ export default store => next => action => {
     ? `${model.modelNamePlural}/${primaryKey}`
     : `${model.modelNamePlural}`;
 
-  const includedModels = [].concat(include);
+  const includeArray = [].concat(include);
+
+  const includedModels = flatten(includeArray.map(getModels));
 
   const params = {
-    include: includedModels.map(Model => Model.modelNamePlural),
+    include: includeArray,
   };
 
   const fetchedModels = [...includedModels, model];
 
   next({
-    type: fetchType,
+    type: requestType,
     primaryKey,
   });
 

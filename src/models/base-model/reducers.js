@@ -4,21 +4,27 @@ import pluralize from 'pluralize';
 import { pk } from './utils';
 import ModelActions from './actions';
 
-const keyByPrimaryKey = modelSet => {
+const updateByPrimaryKey = (state, modelSet) => {
   const modelSetArray = [].concat(modelSet);
   if (modelSetArray.length) {
     if (!pk(modelSetArray[0])) {
       throw new Error('modelSet is missing `primaryKey` property');
     }
-    return modelSetArray.reduce((memo, model) => ({
-      ...memo,
-      [pk(model)]: {
-        ...model,
-        isFetching: false,
-      },
-    }), {})
+    return modelSetArray.reduce((newState, model) => {
+      const primaryKey = pk(model);
+      return {
+        ...newState,
+        [primaryKey]: {
+          ...state[primaryKey],
+          ...model,
+          isFetching: false,
+        },
+      };
+    }, {
+      ...state,
+    });
   }
-  return {};
+  return state;
 };
 
 const defaultRecordState = {
@@ -36,9 +42,6 @@ class StaticModel extends ModelActions {
   static get modelNamePlural() {
     return pluralize(this.modelName);
   }
-  static stateAddress(state) {
-    return state.entities[this.modelNamePlural];
-  }
   static reducer(state = defaultRecordState, action) {
     switch (action.type) {
       case this.FETCH:
@@ -52,7 +55,7 @@ class StaticModel extends ModelActions {
           ...state,
           models: this.modelSetReducer(state.models, action),
           isLoading: false,
-          isStale: action.isStale,
+          isStale: state.isStale && action.isStale,
           receivedAt: action.receivedAt,
           errors: null,
         };
@@ -82,7 +85,7 @@ class StaticModel extends ModelActions {
   static modelSetReducer(state = {}, action) {
     switch (action.type) {
       case this.RECEIVE:
-        return keyByPrimaryKey(action.data);
+        return updateByPrimaryKey(state, action.data);
       case this.UPDATE_ONE:
       case this.SAVE_ONE:
       case this.ERROR_ONE:

@@ -1,4 +1,5 @@
 import { InheritedFields } from './utils';
+import { MODEL_REQUEST } from './middleware';
 
 class ModelActions extends InheritedFields {
   static get TYPE() {
@@ -36,6 +37,20 @@ class ModelActions extends InheritedFields {
   }
   static get ERROR_ONE() {
     return `ERROR_ONE_${this.TYPE}`;
+  }
+
+  static fetch(options = {}) {
+    return {
+      type: MODEL_REQUEST,
+      model: this,
+      requestType: this.FETCH,
+      responseTypeKey: 'RECEIVE',
+      errorType: this.ERROR,
+      context: {
+        primaryKey: options.primaryKey,
+        include: options.include,
+      },
+    };
   }
 }
 
