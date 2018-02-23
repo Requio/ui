@@ -1,9 +1,13 @@
 import { cacheModel } from './base';
 import ModelSelectors from './selectors';
 import modelMiddleware from './middleware';
+import Query from './query';
 
 export class Model extends ModelSelectors {
-
+  static get Query() {
+    this._Query = this._Query || Query(this);
+    return this._Query;
+  }
 }
 
 export const combineModelReducers = (...models) => {
@@ -12,19 +16,6 @@ export const combineModelReducers = (...models) => {
     ...rootReducer,
     [model.modelNamePlural]: model.reducer.bind(model),
   }), {});
-};
-
-export const mergeModelProps = ({ loadModel = () => {}, isModelLoaded = () => {} }) => (stateProps, dispatchProps, ownProps) => {
-  const mergedProps = {
-    ...stateProps,
-    ...dispatchProps,
-    ...ownProps,
-  };
-  return {
-    ...mergedProps,
-    loadModel: () => loadModel(mergedProps),
-    isModelLoaded: () => isModelLoaded(mergedProps),
-  };
 };
 
 export { modelMiddleware };

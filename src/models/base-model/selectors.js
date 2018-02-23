@@ -1,4 +1,4 @@
-import { values, isUndefined, isArray } from 'lodash';
+import { values, isUndefined, isArray, pick } from 'lodash';
 import { createSelector } from 'reselect';
 
 import store from '../../services/store';
@@ -6,29 +6,26 @@ import ModelReducers from './reducers';
 import { pk } from './utils';
 
 class ModelHydrationSet {
-  constructor(Model, models) {
-    const state = store.getState();
-    const hydratedRelationsByField = Object.entries(Model.relations).reduce((memo, [field, Relation]) => ({
-      ...memo,
-      [field]: Relation.hydrate(Relation.selector(state).models),
-    }), {});
-    this.hydratedModels = Object.entries(models).reduce((modelSet, [, model]) => ({
-      ...modelSet,
-      [pk(model)]: new Model(model, hydratedRelationsByField),
-    }), {});
+  constructor(models, Model) {
+    if (Model) {
+      const state = store.getState();
+      const hydratedRelationsByField = Object.entries(Model.relations).reduce((memo, [field, Relation]) => ({
+        ...memo,
+        [field]: Relation.hydrate(Relation.selector(state).models),
+      }), {});
+      this.hydratedModels = Object.entries(models).reduce((modelSet, [, model]) => ({
+        ...modelSet,
+        [pk(model)]: new Model(model, hydratedRelationsByField),
+      }), {});
+    } else {
+      this.hydratedModels = models;
+    }
   }
   get(primaryKey) {
     return this.hydratedModels[primaryKey];
   }
   filter(primaryKeys) {
-    this.hydratedModels = primaryKeys.reduce((modelSet, primaryKey) => {
-      const value = this.get(primaryKey);
-      if (value) {
-        modelSet[pk(value)] = value;
-      }
-      return modelSet;
-    }, {});
-    return this;
+    return new ModelHydrationSet(pick(this.hydratedModels, primaryKeys));
   }
   get all() {
     return Object.entries(this.hydratedModels).map(([, model]) => model);
@@ -61,7 +58,7 @@ export default class ModelSelectors extends ModelReducers {
     return this.hydrate(this.selector(state).models);
   }
   static hydrate(models) {
-    return new ModelHydrationSet(this, models);
+    return new ModelHydrationSet(models, this);
   }
   constructor(modelHydration, hydratedRelationsByField) {
     super(modelHydration);

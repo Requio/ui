@@ -9,8 +9,3 @@ class Proc extends Model {
 }
 
 export default Proc;
-
-
-
-
-window.Proc = Proc;
