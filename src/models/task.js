@@ -1,4 +1,4 @@
-import { Model } from './base-model';
+import { Model } from 'redux-sideloader';
 import Action from './action';
 
 class Task extends Model {

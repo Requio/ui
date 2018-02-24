@@ -11,6 +11,6 @@ const ProcContainer = ({ match, proc }) => (
 
 export default connect(
   (state, ownProps) => ({
-    proc: Proc.memoizedHydratingSelector(state).get(ownProps.match.params.id),
+    proc: Proc.hydratingSelector(state).get(ownProps.match.params.id),
   }),
 )(ProcContainer);

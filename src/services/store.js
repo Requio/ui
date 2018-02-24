@@ -3,7 +3,7 @@ import thunkMiddleware from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
 import apiMiddleware from '../middleware/api';
 import debugMiddleware from '../middleware/debug';
-import { modelMiddleware } from '../models/base-model';
+import { modelMiddleware } from 'redux-sideloader';
 import rootReducer from '../reducers';
 import history from './history';
 

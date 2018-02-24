@@ -5,7 +5,7 @@ import * as sessionReducers from './session-reducers';
 
 export default combineReducers({
   router: routerReducer,
-  entities: combineReducers(modelReducers),
-  // ui: combineReducers(uiReducers),
+  ...modelReducers,
   ...sessionReducers,
+  // ui: combineReducers(uiReducers),
 });

@@ -4,6 +4,10 @@ const Proc = ({ proc }) => (
   <div>
     <div>{proc.title}</div>
     <div>Tasks: {proc.tasks.length}</div>
+    <input value={proc.title} onChange={proc.change(proc.TITLE)} />
+    {proc.tasks.map(task => (
+      <div key={task.id}>{task.action.title}</div>
+    ))}
   </div>
 );
 

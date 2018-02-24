@@ -1,4 +1,4 @@
-import { Model } from './base-model';
+import { Model } from 'redux-sideloader';
 import Task from './task';
 
 class Proc extends Model {
