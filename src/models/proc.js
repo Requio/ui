@@ -1,10 +1,13 @@
-import { Model } from 'redux-sideloader';
-import Task from './task';
+import { Model, field } from 'redux-sideloader';
+
+const { text } = field;
 
 class Proc extends Model {
   static className = 'Proc'
-  static relations = {
-    tasks: Task,
+  static fields = {
+    title: text(),
+    description: text(),
+    // account: relation('Account'),
   }
 }
 
