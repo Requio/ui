@@ -1,12 +1,12 @@
 import { Model, field } from 'redux-sideloader';
 
-const { text } = field;
+const { string } = field;
 
 class Proc extends Model {
   static className = 'Proc'
   static fields = {
-    title: text(),
-    description: text(),
+    title: string(),
+    description: string(),
     // account: relation('Account'),
   }
 }

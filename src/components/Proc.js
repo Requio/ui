@@ -9,6 +9,8 @@ const Proc = ({ proc }) => {
       {proc.tasks.map(task => (
         <div key={task.id}>Action: {task.action.title}</div>
       ))}
+      {!proc.isSaved && <button onClick={proc.save}>Save</button>}
+      {proc.isSaving && 'Saving...'}
     </div>
   );
 };

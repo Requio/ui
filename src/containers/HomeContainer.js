@@ -11,6 +11,6 @@ const HomeContainer = ({ procs }) => (
 
 export default connect(
   state => ({
-    procs: Proc.selector(state),
+    procs: Proc.hydratingSelector(state),
   })
 )(HomeContainer);

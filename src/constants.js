@@ -1,5 +1,6 @@
 export const API_URL = `http://localhost:3000/api`;
 export const API_VERSION = '1';
+export const CSRF_TOKEN = 'csrfToken';
 
 export const REDIRECT_URI = `${window.location.origin}/redirect.html`;
 

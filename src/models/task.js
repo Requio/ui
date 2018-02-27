@@ -1,13 +1,13 @@
 import { Model, field } from 'redux-sideloader';
 
-const { relation, text, shape } = field;
+const { relation, string, shape } = field;
 
 class Task extends Model {
   static className = 'Task'
   static fields = {
-    'action': relation('Action'),
-    'title': text(),
-    'proc': relation('Proc', { inverse: 'tasks' }),
+    'action': relation('Action', { hasOne: true }),
+    'title': string(),
+    'proc': relation('Proc', { inverse: 'tasks', hasOne: true }),
     'config': shape(),
   }
 }
