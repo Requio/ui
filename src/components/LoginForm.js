@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-export default ({ location, authenticated, login }) => {
+const LoginForm = ({ authenticated, login }) => {
   if (authenticated) {
     return <Redirect exact to="/" />;
   }
@@ -12,3 +12,5 @@ export default ({ location, authenticated, login }) => {
     </div>
   );
 };
+
+export default LoginForm;

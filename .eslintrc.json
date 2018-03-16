@@ -1,10 +1,12 @@
 {
+  "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 2017,
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
-      "jsx": true
+      "jsx": true,
+      "classes": true
     }
   },
   "env": {
@@ -18,7 +20,8 @@
     "window": true
   },
   "extends": [
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:react/recommended"
   ],
   "rules": {
     "accessor-pairs": "error",
@@ -106,10 +109,7 @@
       20
     ],
     "max-statements-per-line": "error",
-    "multiline-ternary": [
-      "error",
-      "never"
-    ],
+    "multiline-ternary": "off",
     "new-cap": "off",
     "new-parens": "error",
     "newline-after-var": "off",
@@ -138,14 +138,7 @@
     "no-extend-native": "error",
     "no-extra-bind": "error",
     "no-extra-label": "error",
-    "no-extra-parens": [
-      "error",
-      "all",
-      {
-        "nestedBinaryExpressions": false,
-        "enforceForArrowConditionals": false
-      }
-    ],
+    "no-extra-parens": "off",
     "no-floating-decimal": "error",
     "no-implicit-coercion": "error",
     "no-implicit-globals": "error",
@@ -281,6 +274,8 @@
     "yoda": [
       "error",
       "never"
-    ]
+    ],
+    "react/jsx-wrap-multilines": "error",
+    "react/prop-types": "off"
   }
 }

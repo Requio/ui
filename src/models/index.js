@@ -6,10 +6,10 @@ import Proc from './proc';
 import Task from './task';
 import Action from './action';
 
-const { reducers, attachStore } = initialize(api)(
+const { reducers, attachStore, modelMiddleware } = initialize(api)(
   Proc,
   Task,
   Action,
 );
 
-export { reducers, attachStore };
+export { reducers, attachStore, modelMiddleware };

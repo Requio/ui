@@ -1,5 +1,7 @@
 import React from 'react';
 
-export default ({ msg }) => (
+const LoadingScreen = ({ msg }) => (
   <div>{ msg ? msg : 'Loading...' }</div>
 );
+
+export default LoadingScreen;

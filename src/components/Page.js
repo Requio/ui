@@ -8,4 +8,4 @@ const Page = ({ children }) => (
   </div>
 );
 
-export default Page
+export default Page;

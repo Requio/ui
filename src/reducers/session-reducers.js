@@ -24,13 +24,13 @@ export const session = (state = initialState, action) => {
         user: action.user,
         loading: false,
         error: null,
-      }
+      };
     case SESSION_ERROR:
       return {
         ...state,
         loading: false,
         error: action.error,
-      }
+      };
     default:
       return state;
   }

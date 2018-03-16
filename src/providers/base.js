@@ -11,7 +11,7 @@ export default {
   extractSession(redirectUrl) {
     const [, params] = redirectUrl.split('?');
     const { code } = params.split('&').reduce((memo, pair) => {
-      const [key, value] = pair.split('=')
+      const [key, value] = pair.split('=');
       return { ...memo, [key]: decodeURIComponent(value) };
     }, {});
     return {
@@ -21,10 +21,10 @@ export default {
   validateSession() {
     throw new Error('not implemented');
   },
-  getAccessToken({ accessToken }) {
+  getAccessToken(/* { accessToken } */) {
     throw new Error('not implemented');
   },
   getSignOutUrl() {
     throw new Error('not implemented');
   },
-}
+};
